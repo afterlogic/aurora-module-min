@@ -87,32 +87,28 @@ class MinModule extends AApiModule
 		return $sResult;		
 	}
 	
-	public function CreateMin()
+	public function CreateMin($HashId, $Parameters)
 	{
-		return $this->oApiMinManager->createMin($this->getParamValue('HashId'), $this->getParamValue('Parameters'));
+		return $this->oApiMinManager->createMin($HashId, $Parameters);
 	}
 
-	public function GetMinByHash()
+	public function GetMinByHash($sHash)
 	{
-		return $this->oApiMinManager->getMinByHash($this->getParamValue('Hash'));
+		return $this->oApiMinManager->getMinByHash($sHash);
 	}
 	
-	public function GetMinByID()
+	public function GetMinByID($Id)
 	{
-		return $this->oApiMinManager->getMinByID($this->getParamValue('ID'));
+		return $this->oApiMinManager->getMinByID($Id);
 	}
 
-	public function UpdateMinByID()
+	public function UpdateMinByID($Id, $Data, $NewId)
 	{
-		return $this->oApiMinManager->updateMinByID($this->getParamValue('ID'), $this->getParamValue('Data'), $this->getParamValue('NewID'));
+		return $this->oApiMinManager->updateMinByID($Id, $Data, $NewId);
 	}
 	
-	public function DeleteMinByID()
+	public function DeleteMinByID($Id)
 	{
-		return $this->oApiMinManager->deleteMinByID($this->getParamValue('ID'));
+		return $this->oApiMinManager->deleteMinByID($Id);
 	}
-		
-
-	
-	
 }
