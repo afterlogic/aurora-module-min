@@ -9,6 +9,7 @@ class MinModule extends AApiModule
 		
 		$this->oApiMinManager = $this->GetManager();
 		$this->AddEntry('window', 'EntryMin');
+		$this->subscribeEvent('Core::CreateTables::after', array($this, 'onAfterCreateTables'));
 	}
 	
 	public function EntryMin()
@@ -110,5 +111,10 @@ class MinModule extends AApiModule
 	public function DeleteMinByID($Id)
 	{
 		return $this->oApiMinManager->deleteMinByID($Id);
+	}
+	
+	public function onAfterCreateTables($aParams)
+	{
+		$res = $aParams['@Result'];
 	}
 }
