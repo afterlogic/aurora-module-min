@@ -113,8 +113,13 @@ class MinModule extends AApiModule
 		return $this->oApiMinManager->deleteMinByID($Id);
 	}
 	
+	/**
+	 * Creates tables required for module work. Called by event subscribe.
+	 * 
+	 * @param array $aParams Parameters
+	 */
 	public function onAfterCreateTables($aParams)
 	{
-		$res = $aParams['@Result'];
+		$aParams['@Result'] = $this->oApiMinManager->createTablesFromFile();
 	}
 }

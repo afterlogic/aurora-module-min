@@ -154,4 +154,26 @@ class CApiMinManager extends AApiManagerWithStorage
 		}
 		return $mResult;
 	}
+	
+	/**
+	 * Creates tables required for module work by executing create.sql file.
+	 * 
+	 * @return boolean
+	 */
+	public function createTablesFromFile()
+	{
+		$bResult = true;
+		
+		try
+		{
+			$sFilePath = dirname(__FILE__) . '/storages/db/sql/create.sql';
+			$bResult = $this->oStorage->executeSqlFile($sFilePath);
+		}
+		catch (CApiBaseException $oException)
+		{
+			$this->setLastException($oException);
+		}
+
+		return $bResult;
+	}
 }

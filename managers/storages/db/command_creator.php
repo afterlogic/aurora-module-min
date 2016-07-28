@@ -15,7 +15,7 @@ class CApiMinCommandCreator extends api_CommandCreator
 	 */
 	public function getMinByHash($sHash)
 	{
-		$sSql = 'SELECT hash_id, hash, data FROM %sawm_min WHERE hash = %s';
+		$sSql = 'SELECT hash_id, hash, data FROM %smin_hashes WHERE hash = %s';
 		
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sHash));
 	}
@@ -27,7 +27,7 @@ class CApiMinCommandCreator extends api_CommandCreator
 	 */
 	public function getMinByID($sHashID)
 	{
-		$sSql = 'SELECT hash_id, hash, data FROM %sawm_min WHERE hash_id = %s';
+		$sSql = 'SELECT hash_id, hash, data FROM %smin_hashes WHERE hash_id = %s';
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sHashID));
 	}
@@ -39,7 +39,7 @@ class CApiMinCommandCreator extends api_CommandCreator
 	 */
 	public function deleteMinByHash($sHash)
 	{
-		$sSql = 'DELETE FROM %sawm_min WHERE hash = %s';
+		$sSql = 'DELETE FROM %smin_hashes WHERE hash = %s';
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sHash));
 	}
@@ -51,7 +51,7 @@ class CApiMinCommandCreator extends api_CommandCreator
 	 */
 	public function deleteMinByID($sHashID)
 	{
-		$sSql = 'DELETE FROM %sawm_min WHERE hash_id = %s';
+		$sSql = 'DELETE FROM %smin_hashes WHERE hash_id = %s';
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sHashID));
 	}
@@ -65,7 +65,7 @@ class CApiMinCommandCreator extends api_CommandCreator
 	 */
 	public function createMin($sHash, $sHashID, $sEncodedParams)
 	{
-		$sSql = 'INSERT INTO %sawm_min ( hash_id, hash, data ) VALUES ( %s, %s, %s )';
+		$sSql = 'INSERT INTO %smin_hashes ( hash_id, hash, data ) VALUES ( %s, %s, %s )';
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sHashID), $this->escapeString($sHash),
 			$this->escapeString($sEncodedParams));
@@ -86,7 +86,7 @@ class CApiMinCommandCreator extends api_CommandCreator
 			$sAdd = sprintf(', hash_id = %s', $this->escapeString($sNewHashID));
 		}
 
-		$sSql = 'UPDATE %sawm_min SET data = %s%s WHERE hash_id = %s';
+		$sSql = 'UPDATE %smin_hashes SET data = %s%s WHERE hash_id = %s';
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sEncodedParams), $sAdd, $this->escapeString($sHashID));
 	}
@@ -106,7 +106,7 @@ class CApiMinCommandCreator extends api_CommandCreator
 			$sAdd = sprintf(', hash_id = %s', $this->escapeString($sNewHashID));
 		}
 		
-		$sSql = 'UPDATE %sawm_min SET data = %s%s WHERE hash = %s';
+		$sSql = 'UPDATE %smin_hashes SET data = %s%s WHERE hash = %s';
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sEncodedParams), $sAdd, $this->escapeString($sHash));
 	}
