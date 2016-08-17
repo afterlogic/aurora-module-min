@@ -103,11 +103,16 @@ class MinModule extends AApiModule
 		return $this->oApiMinManager->getMinByID($Id);
 	}
 
-	public function UpdateMinByID($Id, $Data, $NewId)
+	public function UpdateMinByID($Id, $Data, $NewId = null)
 	{
 		return $this->oApiMinManager->updateMinByID($Id, $Data, $NewId);
 	}
 	
+	public function UpdateMinByHash($Hash, $Data, $NewHash = null)
+	{
+		return $this->oApiMinManager->updateMinByHash($Hash, $Data, $NewHash);
+	}
+
 	public function DeleteMinByID($Id)
 	{
 		return $this->oApiMinManager->deleteMinByID($Id);
