@@ -90,31 +90,43 @@ class MinModule extends AApiModule
 	
 	public function CreateMin($HashId, $Parameters)
 	{
+		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		
 		return $this->oApiMinManager->createMin($HashId, $Parameters);
 	}
 
 	public function GetMinByHash($sHash)
 	{
+		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		
 		return $this->oApiMinManager->getMinByHash($sHash);
 	}
 	
 	public function GetMinByID($Id)
 	{
+		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		
 		return $this->oApiMinManager->getMinByID($Id);
 	}
 
 	public function UpdateMinByID($Id, $Data, $NewId = null)
 	{
+		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		
 		return $this->oApiMinManager->updateMinByID($Id, $Data, $NewId);
 	}
 	
 	public function UpdateMinByHash($Hash, $Data, $NewHash = null)
 	{
+		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		
 		return $this->oApiMinManager->updateMinByHash($Hash, $Data, $NewHash);
 	}
 
 	public function DeleteMinByID($Id)
 	{
+		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		
 		return $this->oApiMinManager->deleteMinByID($Id);
 	}
 	
