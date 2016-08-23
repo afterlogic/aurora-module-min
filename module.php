@@ -118,7 +118,7 @@ class MinModule extends AApiModule
 	
 	public function UpdateMinByHash($Hash, $Data, $NewHash = null)
 	{
-		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
 		
 		return $this->oApiMinManager->updateMinByHash($Hash, $Data, $NewHash);
 	}
