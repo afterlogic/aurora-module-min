@@ -24,7 +24,7 @@ class MinModule extends AApiModule
 //				\CApi::GetModuleManager()->ExecuteMethod($sModule, $sMethod, $aParameters);
 				if (/*method_exists($this->oActions, $sMethodName)*/ true)
 				{
-					if ('Min' === $aPaths[0])
+					if ('Min' === $aPaths[1])
 					{
 						$mHashResult = $this->oApiMinManager->getMinByHash(empty($aPaths[2]) ? '' : $aPaths[2]);
 
