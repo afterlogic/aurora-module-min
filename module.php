@@ -1,10 +1,33 @@
 <?php
+/*
+ * @copyright Copyright (c) 2016, Afterlogic Corp.
+ * @license AGPL-3.0
+ *
+ * This code is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License, version 3,
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License, version 3,
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
 
 class MinModule extends AApiModule
 {
 	public $oApiMinManager = null;
-
-	public function init() {
+	
+	/***** private functions *****/
+	/**
+	 * Initializes module.
+	 * 
+	 * @ignore
+	 */
+	public function init()
+	{
 		parent::init();
 		
 		$this->oApiMinManager = $this->GetManager();
@@ -12,6 +35,23 @@ class MinModule extends AApiModule
 		$this->subscribeEvent('Core::CreateTables::after', array($this, 'onAfterCreateTables'));
 	}
 	
+	/**
+	 * Creates tables required for module work. Called by event subscribe.
+	 * 
+	 * @ignore
+	 * @param array $aParams Parameters
+	 */
+	public function onAfterCreateTables($aParams)
+	{
+		$aParams['@Result'] = $this->oApiMinManager->createTablesFromFile();
+	}
+	/***** private functions *****/
+	
+	/***** public functions *****/
+	/**
+	 * @ignore
+	 * @return string
+	 */
 	public function EntryMin()
 	{
 		$sResult = '';
@@ -27,7 +67,7 @@ class MinModule extends AApiModule
 					if ('Min' === $aPaths[1])
 					{
 						$mHashResult = $this->oApiMinManager->getMinByHash(empty($aPaths[2]) ? '' : $aPaths[2]);
-
+						
 						$this->oActions->SetActionParams(array(
 							'Result' => $mHashResult,
 							'Hash' => empty($aPaths[2]) ? '' : $aPaths[2],
@@ -40,11 +80,11 @@ class MinModule extends AApiModule
 							'RawKey' => empty($aPaths[3]) ? '' : $aPaths[3]
 						));
 					}
-
+					
 					$mResult = call_user_func(array($this->oActions, $sMethodName));
 					$sTemplate = isset($mResult['Template']) && !empty($mResult['Template']) &&
 						is_string($mResult['Template']) ? $mResult['Template'] : null;
-
+					
 					if (!empty($sTemplate) && is_array($mResult) && file_exists(PSEVEN_APP_ROOT_PATH.$sTemplate))
 					{
 						$sResult = file_get_contents(PSEVEN_APP_ROOT_PATH.$sTemplate);
@@ -83,18 +123,33 @@ class MinModule extends AApiModule
 		catch (\Exception $oException)
 		{
 			\CApi::LogException($oException);
-		}		
+		}
 		
-		return $sResult;		
+		return $sResult;
 	}
+	/***** public functions *****/
 	
+	/***** public functions might be called with web API *****/
+	/**
+	 * Crates min hash.
+	 * 
+	 * @param string $HashId Hash identificator.
+	 * @param array $Parameters Hash parameters.
+	 * @return string|boolean
+	 */
 	public function CreateMin($HashId, $Parameters)
 	{
 		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
 		
 		return $this->oApiMinManager->createMin($HashId, $Parameters);
 	}
-
+	
+	/**
+	 * Returns parameters object by min hash.
+	 * 
+	 * @param string $sHash Min hash.
+	 * @return array|bool
+	 */
 	public function GetMinByHash($sHash)
 	{
 		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
@@ -102,13 +157,27 @@ class MinModule extends AApiModule
 		return $this->oApiMinManager->getMinByHash($sHash);
 	}
 	
+	/**
+	 * Returns parameters object by min hash identificator.
+	 * 
+	 * @param string $Id
+	 * @return array|bool
+	 */
 	public function GetMinByID($Id)
 	{
 		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
 		
 		return $this->oApiMinManager->getMinByID($Id);
 	}
-
+	
+	/**
+	 * Updates min hash by min hash identificator.
+	 * 
+	 * @param string $Id Hash identificator.
+	 * @param array $Data Hash parameters.
+	 * @param string $NewId New hash identificator.
+	 * @return boolean
+	 */
 	public function UpdateMinByID($Id, $Data, $NewId = null)
 	{
 		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
@@ -116,27 +185,32 @@ class MinModule extends AApiModule
 		return $this->oApiMinManager->updateMinByID($Id, $Data, $NewId);
 	}
 	
+	/**
+	 * Updates min hash by min hash.
+	 * 
+	 * @param string $Hash Min hash.
+	 * @param array $Data Hash parameters.
+	 * @param string $NewHash New min hash.
+	 * @return boolean
+	 */
 	public function UpdateMinByHash($Hash, $Data, $NewHash = null)
 	{
 		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
 		
 		return $this->oApiMinManager->updateMinByHash($Hash, $Data, $NewHash);
 	}
-
+	
+	/**
+	 * Deletes min hash by min hash identificator.
+	 * 
+	 * @param string $Id
+	 * @return boolean
+	 */
 	public function DeleteMinByID($Id)
 	{
 		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
 		
 		return $this->oApiMinManager->deleteMinByID($Id);
 	}
-	
-	/**
-	 * Creates tables required for module work. Called by event subscribe.
-	 * 
-	 * @param array $aParams Parameters
-	 */
-	public function onAfterCreateTables($aParams)
-	{
-		$aParams['@Result'] = $this->oApiMinManager->createTablesFromFile();
-	}
+	/***** public functions might be called with web API *****/
 }
