@@ -43,9 +43,9 @@ class MinModule extends AApiModule
 	 * @ignore
 	 * @param array $aParams Parameters
 	 */
-	public function onAfterCreateTables($aParams)
+	public function onAfterCreateTables($aParams, &$mResult)
 	{
-		$aParams['@Result'] = $this->oApiMinManager->createTablesFromFile();
+		$mResult = $this->oApiMinManager->createTablesFromFile();
 	}
 	/***** private functions *****/
 	
