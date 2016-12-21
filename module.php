@@ -135,7 +135,7 @@ class MinModule extends AApiModule
 	/**
 	 * Crates min hash.
 	 * 
-	 * @param string $HashId Hash identificator.
+	 * @param string $HashId Hash identifier.
 	 * @param array $Parameters Hash parameters.
 	 * @return string|boolean
 	 */
@@ -160,7 +160,7 @@ class MinModule extends AApiModule
 	}
 	
 	/**
-	 * Returns parameters object by min hash identificator.
+	 * Returns parameters object by min hash identifier.
 	 * 
 	 * @param string $Id
 	 * @return array|bool
@@ -173,11 +173,11 @@ class MinModule extends AApiModule
 	}
 	
 	/**
-	 * Updates min hash by min hash identificator.
+	 * Updates min hash by min hash identifier.
 	 * 
-	 * @param string $Id Hash identificator.
+	 * @param string $Id Hash identifier.
 	 * @param array $Data Hash parameters.
-	 * @param string $NewId New hash identificator.
+	 * @param string $NewId New hash identifier.
 	 * @return boolean
 	 */
 	public function UpdateMinByID($Id, $Data, $NewId = null)
@@ -203,7 +203,7 @@ class MinModule extends AApiModule
 	}
 	
 	/**
-	 * Deletes min hash by min hash identificator.
+	 * Deletes min hash by min hash identifier.
 	 * 
 	 * @param string $Id
 	 * @return boolean
