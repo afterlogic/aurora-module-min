@@ -22,7 +22,7 @@
  * @package Min
  * @subpackage Storages
  */
-class CApiMinCommandCreator extends api_CommandCreator
+class CApiMinCommandCreator extends \Aurora\System\Db\AbstractCommandCreator
 {
 	/**
 	 * @param string $sHash

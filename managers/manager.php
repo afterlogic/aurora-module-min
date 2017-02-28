@@ -23,12 +23,12 @@
  *
  * @package Min
  */
-class CApiMinManager extends AApiManagerWithStorage
+class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 {
 	/**
-	 * @param CApiGlobalManager &$oManager
+	 * @param \Aurora\System\GlobalManager &$oManager
 	 */
-	public function __construct(CApiGlobalManager &$oManager, $sForcedStorage = '', AApiModule $oModule = null)
+	public function __construct(\Aurora\System\GlobalManager &$oManager, $sForcedStorage = '', \Aurora\System\AbstractModule $oModule = null)
 	{
 		parent::__construct('', $oManager, $sForcedStorage, $oModule);
 	}

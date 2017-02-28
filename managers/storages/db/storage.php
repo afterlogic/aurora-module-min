@@ -35,9 +35,9 @@ class CApiMinDbStorage extends CApiMinStorage
 	protected $oCommandCreator;
 
 	/**
-	 * @param CApiGlobalManager &$oManager
+	 * @param \Aurora\System\GlobalManager &$oManager
 	 */
-	public function __construct(AApiManager &$oManager)
+	public function __construct(\Aurora\System\AbstractManager &$oManager)
 	{
 		parent::__construct('db', $oManager);
 
@@ -68,7 +68,7 @@ class CApiMinDbStorage extends CApiMinStorage
 
 		while (true)
 		{
-			$sNewMin = api_Utils::GenerateShortHashString(10);
+			$sNewMin = \Aurora\System\Utils::GenerateShortHashString(10);
 			if (false === $this->getMinByHash($sNewMin))
 			{
 				break;

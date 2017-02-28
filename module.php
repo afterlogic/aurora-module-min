@@ -20,7 +20,7 @@
 
 namespace Aurora\Modules;
 
-class MinModule extends \AApiModule
+class MinModule extends \Aurora\System\AbstractModule
 {
 	public $oApiMinManager = null;
 	
@@ -65,7 +65,7 @@ class MinModule extends \AApiModule
 		{
 			if (!empty($sModule))
 			{
-//				\CApi::GetModuleManager()->ExecuteMethod($sModule, $sMethod, $aParameters);
+//				\Aurora\System\Api::GetModuleManager()->ExecuteMethod($sModule, $sMethod, $aParameters);
 				if (/*method_exists($this->oActions, $sMethodName)*/ true)
 				{
 					if ('Min' === $aPaths[1])
@@ -98,12 +98,12 @@ class MinModule extends \AApiModule
 						}
 						else
 						{
-							\CApi::Log('Empty template.', \ELogLevel::Error);
+							\Aurora\System\Api::Log('Empty template.', \ELogLevel::Error);
 						}
 					}
 					else if (!empty($sTemplate))
 					{
-						\CApi::Log('Empty template.', \ELogLevel::Error);
+						\Aurora\System\Api::Log('Empty template.', \ELogLevel::Error);
 					}
 					else if (true === $mResult)
 					{
@@ -111,22 +111,22 @@ class MinModule extends \AApiModule
 					}
 					else
 					{
-						\CApi::Log('False result.', \ELogLevel::Error);
+						\Aurora\System\Api::Log('False result.', \ELogLevel::Error);
 					}
 				}
 				else
 				{
-					\CApi::Log('Invalid action.', \ELogLevel::Error);
+					\Aurora\System\Api::Log('Invalid action.', \ELogLevel::Error);
 				}
 			}
 			else
 			{
-				\CApi::Log('Empty action.', \ELogLevel::Error);
+				\Aurora\System\Api::Log('Empty action.', \ELogLevel::Error);
 			}
 		}
 		catch (\Exception $oException)
 		{
-			\CApi::LogException($oException);
+			\Aurora\System\Api::LogException($oException);
 		}
 		
 		return $sResult;
@@ -143,7 +143,7 @@ class MinModule extends \AApiModule
 	 */
 	public function CreateMin($HashId, $Parameters)
 	{
-		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
 		
 		return $this->oApiMinManager->createMin($HashId, $Parameters);
 	}
@@ -156,7 +156,7 @@ class MinModule extends \AApiModule
 	 */
 	public function GetMinByHash($sHash)
 	{
-		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
 		
 		return $this->oApiMinManager->getMinByHash($sHash);
 	}
@@ -169,7 +169,7 @@ class MinModule extends \AApiModule
 	 */
 	public function GetMinByID($Id)
 	{
-		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
 		
 		return $this->oApiMinManager->getMinByID($Id);
 	}
@@ -184,7 +184,7 @@ class MinModule extends \AApiModule
 	 */
 	public function UpdateMinByID($Id, $Data, $NewId = null)
 	{
-		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
 		
 		return $this->oApiMinManager->updateMinByID($Id, $Data, $NewId);
 	}
@@ -199,7 +199,7 @@ class MinModule extends \AApiModule
 	 */
 	public function UpdateMinByHash($Hash, $Data, $NewHash = null)
 	{
-		\CApi::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
 		
 		return $this->oApiMinManager->updateMinByHash($Hash, $Data, $NewHash);
 	}
@@ -212,7 +212,7 @@ class MinModule extends \AApiModule
 	 */
 	public function DeleteMinByID($Id)
 	{
-		\CApi::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
 		
 		return $this->oApiMinManager->deleteMinByID($Id);
 	}
