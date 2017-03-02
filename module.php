@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (c) 2016, Afterlogic Corp.
+ * @copyright Copyright (c) 2017, Afterlogic Corp.
  * @license AGPL-3.0
  *
  * This code is free software: you can redistribute it and/or modify
@@ -59,7 +59,7 @@ class MinModule extends \Aurora\System\AbstractModule
 	public function EntryMin()
 	{
 		$sResult = '';
-		$aPaths = \System\Service::GetPaths();
+		$aPaths = \Aurora\System\Service::GetPaths();
 		$sModule = empty($aPaths[1]) ? '' : $aPaths[1];
 		try
 		{
