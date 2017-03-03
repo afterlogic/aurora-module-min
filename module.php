@@ -59,7 +59,7 @@ class MinModule extends \Aurora\System\Module\AbstractModule
 	public function EntryMin()
 	{
 		$sResult = '';
-		$aPaths = \Aurora\System\Service::GetPaths();
+		$aPaths = \Aurora\System\Application::GetPaths();
 		$sModule = empty($aPaths[1]) ? '' : $aPaths[1];
 		try
 		{
