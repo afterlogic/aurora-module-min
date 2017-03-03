@@ -46,7 +46,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 		{
 			$mResult = $this->oStorage->createMin($sHashID, $aParams);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
@@ -65,7 +65,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 		{
 			$mResult = $this->oStorage->getMinByID($sHashID);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
@@ -84,7 +84,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 		{
 			$mResult = $this->oStorage->getMinByHash($sHash);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
@@ -103,7 +103,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 		{
 			$mResult = $this->oStorage->deleteMinByID($sHashID);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
@@ -122,7 +122,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 		{
 			$mResult = $this->oStorage->deleteMinByHash($sHash);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
@@ -143,7 +143,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 		{
 			$mResult = $this->oStorage->updateMinByID($sHashID, $aParams, $sNewHashID);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
@@ -164,7 +164,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 		{
 			$mResult = $this->oStorage->updateMinByHash($sHash, $aParams, $sNewHashID);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
@@ -185,7 +185,7 @@ class CApiMinManager extends \Aurora\System\AbstractManagerWithStorage
 			$sFilePath = dirname(__FILE__) . '/storages/db/sql/create.sql';
 			$bResult = $this->oStorage->executeSqlFile($sFilePath);
 		}
-		catch (CApiBaseException $oException)
+		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
 			$this->setLastException($oException);
 		}
