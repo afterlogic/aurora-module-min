@@ -20,7 +20,7 @@
 
 namespace Aurora\Modules;
 
-class MinModule extends \Aurora\System\AbstractModule
+class MinModule extends \Aurora\System\Module\AbstractModule
 {
 	public $oApiMinManager = null;
 	
