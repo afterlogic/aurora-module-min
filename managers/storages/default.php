@@ -22,12 +22,12 @@
  * @package Min
  * @subpackage Storages
  */
-class CApiMinStorage extends \Aurora\System\AbstractManagerStorage
+class CApiMinStorage extends \Aurora\System\Managers\AbstractManagerStorage
 {
 	/**
-	 * @param \Aurora\System\GlobalManager &$oManager
+	 * @param \Aurora\System\Managers\GlobalManager &$oManager
 	 */
-	public function __construct($sStorageName, \Aurora\System\AbstractManager &$oManager)
+	public function __construct($sStorageName, \Aurora\System\Managers\AbstractManager &$oManager)
 	{
 		parent::__construct('min', $sStorageName, $oManager);
 	}
