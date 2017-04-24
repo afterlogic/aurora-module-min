@@ -48,7 +48,10 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function onAfterCreateTables($aParams, &$mResult)
 	{
-		$mResult = $this->oApiMinManager->createTablesFromFile();
+		if ($mResult)
+		{
+			$mResult = $this->oApiMinManager->createTablesFromFile();
+		}
 	}
 	/***** private functions *****/
 	
