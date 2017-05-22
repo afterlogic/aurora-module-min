@@ -34,8 +34,8 @@ class CApiMinDbStorage extends CApiMinStorage
 		$this->oConnection =& $oManager->GetConnection();
 		$this->oCommandCreator =& $oManager->GetCommandCreator(
 			$this, array(
-				EDbType::MySQL => 'CApiMinCommandCreatorMySQL',
-				EDbType::PostgreSQL => 'CApiMinCommandCreatorPostgreSQL'
+				\Aurora\System\Enums\DbType::MySQL => 'CApiMinCommandCreatorMySQL',
+				\Aurora\System\Enums\DbType::PostgreSQL => 'CApiMinCommandCreatorPostgreSQL'
 			)
 		);
 	}
