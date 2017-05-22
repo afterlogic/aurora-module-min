@@ -139,7 +139,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function CreateMin($HashId, $Parameters)
 	{
-		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
 		
 		return $this->oApiMinManager->createMin($HashId, $Parameters);
 	}
@@ -152,7 +152,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function GetMinByHash($sHash)
 	{
-		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
 		
 		return $this->oApiMinManager->getMinByHash($sHash);
 	}
@@ -165,7 +165,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function GetMinByID($Id)
 	{
-		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
 		
 		return $this->oApiMinManager->getMinByID($Id);
 	}
@@ -180,7 +180,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function UpdateMinByID($Id, $Data, $NewId = null)
 	{
-		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
 		
 		return $this->oApiMinManager->updateMinByID($Id, $Data, $NewId);
 	}
@@ -195,7 +195,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function UpdateMinByHash($Hash, $Data, $NewHash = null)
 	{
-		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::Anonymous);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
 		
 		return $this->oApiMinManager->updateMinByHash($Hash, $Data, $NewHash);
 	}
@@ -208,7 +208,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function DeleteMinByID($Id)
 	{
-		\Aurora\System\Api::checkUserRoleIsAtLeast(\EUserRole::NormalUser);
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
 		
 		return $this->oApiMinManager->deleteMinByID($Id);
 	}
