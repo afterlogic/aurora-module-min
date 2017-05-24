@@ -8,11 +8,9 @@
  * For full statements of the licenses see LICENSE-AFTERLOGIC and LICENSE-AGPL3 files.
  */
 
-/**
- * @package Min
- * @subpackage Storages
- */
-class CApiMinCommandCreator extends \Aurora\System\Db\AbstractCommandCreator
+namespace Aurora\Modules\Min\Storages\Db;
+
+class CommandCreator extends \Aurora\System\Db\AbstractCommandCreator
 {
 	/**
 	 * @param string $sHash
@@ -116,22 +114,4 @@ class CApiMinCommandCreator extends \Aurora\System\Db\AbstractCommandCreator
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sEncodedParams), $sAdd, $this->escapeString($sHash));
 	}
-}
-
-/**
- * @package Min
- * @subpackage Storages
- */
-class CApiMinCommandCreatorMySQL extends CApiMinCommandCreator
-{
-	
-}
-
-/**
- * @package Min
- * @subpackage Storages
- */
-class CApiMinCommandCreatorPostgreSQL extends CApiMinCommandCreator
-{
-
 }

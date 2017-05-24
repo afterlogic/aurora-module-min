@@ -8,11 +8,9 @@
  * For full statements of the licenses see LICENSE-AFTERLOGIC and LICENSE-AGPL3 files.
  */
 
-/**
- * @package Min
- * @subpackage Storages
- */
-class CApiMinStorage extends \Aurora\System\Managers\AbstractManagerStorage
+namespace Aurora\Modules\Min\Storages;
+
+class Storage extends \Aurora\System\Managers\AbstractManagerStorage
 {
 	/**
 	 * @param \Aurora\System\Managers\GlobalManager &$oManager

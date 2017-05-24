@@ -27,7 +27,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 	{
 		parent::init();
 		
-		$this->oApiMinManager = $this->GetManager();
+		$this->oApiMinManager = new Manager('', $this);
 		$this->AddEntry('window', 'EntryMin');
 		$this->subscribeEvent('Core::CreateTables::after', array($this, 'onAfterCreateTables'));
 	}
@@ -94,12 +94,12 @@ class Module extends \Aurora\System\Module\AbstractModule
 						}
 						else
 						{
-							\Aurora\System\Api::Log('Empty template.', \ELogLevel::Error);
+							\Aurora\System\Api::Log('Empty template.', \Aurora\System\Enums\LogLevel::Error);
 						}
 					}
 					else if (!empty($sTemplate))
 					{
-						\Aurora\System\Api::Log('Empty template.', \ELogLevel::Error);
+						\Aurora\System\Api::Log('Empty template.', \Aurora\System\Enums\LogLevel::Error);
 					}
 					else if (true === $mResult)
 					{
@@ -107,17 +107,17 @@ class Module extends \Aurora\System\Module\AbstractModule
 					}
 					else
 					{
-						\Aurora\System\Api::Log('False result.', \ELogLevel::Error);
+						\Aurora\System\Api::Log('False result.', \Aurora\System\Enums\LogLevel::Error);
 					}
 				}
 				else
 				{
-					\Aurora\System\Api::Log('Invalid action.', \ELogLevel::Error);
+					\Aurora\System\Api::Log('Invalid action.', \Aurora\System\Enums\LogLevel::Error);
 				}
 			}
 			else
 			{
-				\Aurora\System\Api::Log('Empty action.', \ELogLevel::Error);
+				\Aurora\System\Api::Log('Empty action.', \Aurora\System\Enums\LogLevel::Error);
 			}
 		}
 		catch (\Exception $oException)

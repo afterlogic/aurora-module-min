@@ -8,11 +8,9 @@
  * For full statements of the licenses see LICENSE-AFTERLOGIC and LICENSE-AGPL3 files.
  */
 
-/**
- * @package Min
- * @subpackage Storages
- */
-class CApiMinDbStorage extends CApiMinStorage
+namespace Aurora\Modules\Min\Storages\Db;
+
+class Storage extends \Aurora\Modules\Min\Storages\Storage
 {
 	/**
 	 * @var CDbStorage $oConnection
@@ -32,12 +30,7 @@ class CApiMinDbStorage extends CApiMinStorage
 		parent::__construct('db', $oManager);
 
 		$this->oConnection =& $oManager->GetConnection();
-		$this->oCommandCreator =& $oManager->GetCommandCreator(
-			$this, array(
-				\Aurora\System\Enums\DbType::MySQL => 'CApiMinCommandCreatorMySQL',
-				\Aurora\System\Enums\DbType::PostgreSQL => 'CApiMinCommandCreatorPostgreSQL'
-			)
-		);
+		$this->oCommandCreator = new CommandCreator\MySQL();
 	}
 
 	/**
