@@ -17,6 +17,6 @@ class Storage extends \Aurora\System\Managers\AbstractManagerStorage
 	 */
 	public function __construct($sStorageName, \Aurora\System\Managers\AbstractManager &$oManager)
 	{
-		parent::__construct('min', $sStorageName, $oManager);
+		parent::__construct($oManager);
 	}
 }
