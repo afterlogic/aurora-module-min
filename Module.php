@@ -85,9 +85,9 @@ class Module extends \Aurora\System\Module\AbstractModule
 					$sTemplate = isset($mResult['Template']) && !empty($mResult['Template']) &&
 						\is_string($mResult['Template']) ? $mResult['Template'] : null;
 					
-					if (!empty($sTemplate) && \is_array($mResult) && \file_exists(AURORA_APP_ROOT_PATH.$sTemplate))
+					if (!empty($sTemplate) && \is_array($mResult) && \file_exists(AU_APP_ROOT_PATH.$sTemplate))
 					{
-						$sResult = \file_get_contents(AURORA_APP_ROOT_PATH.$sTemplate);
+						$sResult = \file_get_contents(AU_APP_ROOT_PATH.$sTemplate);
 						if (\is_string($sResult))
 						{
 							$sResult = \strtr($sResult, $mResult);
