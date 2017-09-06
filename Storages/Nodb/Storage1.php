@@ -8,11 +8,13 @@
  * For full statements of the licenses see LICENSE-AFTERLOGIC and LICENSE-AGPL3 files.
  */
 
+namespace Aurora\Modules\Min\Storages\Nodb;
+
 /**
  * @package Min
  * @subpackage Storages
  */
-class CApiMinNodbStorage extends CApiMinMainStorage
+class Storage extends Aurora\Modules\Min\Storages\Storage
 {
 	/**
 	 * @param \Aurora\System\Managers\GlobalManager &$oManager
