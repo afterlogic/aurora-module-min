@@ -12,7 +12,7 @@ namespace Aurora\Modules\Min;
 
 class Manager extends \Aurora\System\Managers\AbstractManagerWithStorage
 {
-	public function __construct($sForcedStorage = '', \Aurora\System\Module\AbstractModule $oModule = null)
+	public function __construct(\Aurora\System\Module\AbstractModule $oModule = null)
 	{
 		parent::__construct($oModule, new Storages\Db\Storage($this));
 	}
