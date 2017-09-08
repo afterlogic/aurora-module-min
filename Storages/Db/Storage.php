@@ -23,11 +23,12 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 	protected $oCommandCreator;
 
 	/**
-	 * @param \Aurora\System\Managers\GlobalManager &$oManager
+	 * 
+	 * @param \Aurora\System\Managers\AbstractManager $oManager
 	 */
 	public function __construct(\Aurora\System\Managers\AbstractManager &$oManager)
 	{
-		parent::__construct('db', $oManager);
+		parent::__construct($oManager);
 
 		$this->oConnection =& $oManager->GetConnection();
 		$this->oCommandCreator = new CommandCreator\MySQL();

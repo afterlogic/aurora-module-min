@@ -17,10 +17,11 @@ namespace Aurora\Modules\Min\Storages\Nodb;
 class Storage extends Aurora\Modules\Min\Storages\Storage
 {
 	/**
-	 * @param \Aurora\System\Managers\GlobalManager &$oManager
+	 * 
+	 * @param \Aurora\System\Managers\AbstractManager $oManager
 	 */
 	public function __construct(\Aurora\System\Managers\AbstractManager &$oManager)
 	{
-		parent::__construct('nodb', $oManager);
+		parent::__construct($oManager);
 	}
 }
