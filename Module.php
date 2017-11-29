@@ -212,5 +212,12 @@ class Module extends \Aurora\System\Module\AbstractModule
 		
 		return $this->oApiMinManager->deleteMinByID($Id);
 	}
+
+    public function DeleteMinByHash($Hash)
+    {
+        \Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
+
+        return $this->oApiMinManager->deleteMinByHash($Hash);
+    }
 	/***** public functions might be called with web API *****/
 }
