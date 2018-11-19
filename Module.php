@@ -26,8 +26,6 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	public function init()
 	{
-		parent::init();
-		
 		$this->oApiMinManager = new Manager($this);
 		$this->AddEntry('window', 'EntryMin');
 		$this->subscribeEvent('Core::CreateTables::after', array($this, 'onAfterCreateTables'));
