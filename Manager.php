@@ -25,12 +25,12 @@ class Manager extends \Aurora\System\Managers\AbstractManagerWithStorage
 	 *
 	 * @return string|bool
 	 */
-	public function createMin($sHashID, $aParams)
+	public function createMin($sHashID, $aParams, $iUserId = null)
 	{
 		$mResult = false;
 		try
 		{
-			$mResult = $this->oStorage->createMin($sHashID, $aParams);
+			$mResult = $this->oStorage->createMin($sHashID, $aParams, $iUserId);
 		}
 		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
@@ -69,6 +69,25 @@ class Manager extends \Aurora\System\Managers\AbstractManagerWithStorage
 		try
 		{
 			$mResult = $this->oStorage->getMinByHash($sHash);
+		}
+		catch (\Aurora\System\Exceptions\BaseException $oException)
+		{
+			$this->setLastException($oException);
+		}
+		return $mResult;
+	}
+
+	/**
+	 * @param int $iUserId
+	 *
+	 * @return array|bool
+	 */
+	public function getMinListByUserId($iUserId)
+	{
+		$mResult = false;
+		try
+		{
+			$mResult = $this->oStorage->getMinListByUserId($iUserId);
 		}
 		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{

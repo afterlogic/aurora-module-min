@@ -37,6 +37,18 @@ class CommandCreator extends \Aurora\System\Db\AbstractCommandCreator
 
 		return sprintf($sSql, $this->prefix(), $this->escapeString($sHashID));
 	}
+
+	/**
+	 * @param string $sHashID
+	 *
+	 * @return string
+	 */
+	public function getMinListByUserId($iUserId)
+	{
+		$sSql = 'SELECT hash_id, hash, data FROM %smin_hashes WHERE user_id = %d';
+
+		return sprintf($sSql, $this->prefix(), $iUserId);
+	}	
 	
 	/**
 	 * @param string $sHash
@@ -69,11 +81,11 @@ class CommandCreator extends \Aurora\System\Db\AbstractCommandCreator
 	 *
 	 * @return string
 	 */
-	public function createMin($sHash, $sHashID, $sEncodedParams)
+	public function createMin($sHash, $sHashID, $sEncodedParams, $iUserId = null)
 	{
-		$sSql = 'INSERT INTO %smin_hashes ( hash_id, hash, data ) VALUES ( %s, %s, %s )';
+		$sSql = 'INSERT INTO %smin_hashes ( hash_id, user_id, hash, data ) VALUES ( %s, %d, %s, %s )';
 
-		return sprintf($sSql, $this->prefix(), $this->escapeString($sHashID), $this->escapeString($sHash),
+		return sprintf($sSql, $this->prefix(), $this->escapeString($sHashID), $iUserId, $this->escapeString($sHash),
 			$this->escapeString($sEncodedParams));
 	}
 

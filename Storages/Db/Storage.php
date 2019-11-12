@@ -42,7 +42,7 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 	 *
 	 * @return string|bool
 	 */
-	public function createMin($sHashID, $aParams)
+	public function createMin($sHashID, $aParams, $iUserId = null)
 	{
 		$mResult = false;
 		$sNewMin = '';
@@ -68,7 +68,7 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 			$aParams['__time__'] = time();
 			$aParams['__time_update__'] = time();
 
-			if ($this->oConnection->Execute($this->oCommandCreator->createMin($sNewMin, md5($sHashID), @\json_encode($aParams))))
+			if ($this->oConnection->Execute($this->oCommandCreator->createMin($sNewMin, md5($sHashID), @\json_encode($aParams), $iUserId)))
 			{
 				$mResult = $sNewMin;
 			}
@@ -198,6 +198,35 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 		if (is_string($sHash) && 0 < strlen($sHash) && $this->oConnection->Execute($this->oCommandCreator->getMinByHash($sHash)))
 		{
 			$mResult = $this->parseGetMinDbResult();
+		}
+
+		$this->throwDbExceptionIfExist();
+		return $mResult;
+	}
+
+	/**
+	 * @param int $iUserId
+	 *
+	 * @return array|bool
+	 */
+	public function getMinListByUserId($iUserId)
+	{
+		$mResult = [];
+
+		if ($this->oConnection->Execute($this->oCommandCreator->getMinListByUserId($iUserId)))
+		{
+			while($oRow = $this->oConnection->GetNextRecord())
+			{
+				if (!empty($oRow->data))
+				{
+					$aData = @\json_decode($oRow->data, true);
+					if (is_array($aData) && 0 < count($aData))
+					{
+						$mResult[]= $aData;
+					}
+				}
+			}
+			$this->oConnection->FreeResult();			
 		}
 
 		$this->throwDbExceptionIfExist();

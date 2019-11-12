@@ -143,13 +143,14 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 * 
 	 * @param string $HashId Hash identifier.
 	 * @param array $Parameters Hash parameters.
+	 * @param int $UserId User identifier.
 	 * @return string|boolean
 	 */
-	public function CreateMin($HashId, $Parameters)
+	public function CreateMin($HashId, $Parameters, $UserId = null)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
 		
-		return $this->oManager->createMin($HashId, $Parameters);
+		return $this->oManager->createMin($HashId, $Parameters, $UserId);
 	}
 	
 	/**
@@ -176,6 +177,19 @@ class Module extends \Aurora\System\Module\AbstractModule
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
 		
 		return $this->oManager->getMinByID($Id);
+	}
+
+	/**
+	 * Returns parameters object by min hash identifier.
+	 * 
+	 * @param int $Id
+	 * @return array|bool
+	 */
+	public function GetMinListByUserId($UserId)
+	{
+		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
+		
+		return $this->oManager->getMinListByUserId($UserId);
 	}
 	
 	/**
