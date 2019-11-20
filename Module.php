@@ -54,6 +54,10 @@ class Module extends \Aurora\System\Module\AbstractModule
 		if ($mResult)
 		{
 			$mResult = $this->oManager->createTablesFromFile();
+			if ($mResult)
+			{
+				$mResult = $this->oManager->updateTables();
+			}
 		}
 	}
 	/***** private functions *****/

@@ -197,4 +197,28 @@ class Manager extends \Aurora\System\Managers\AbstractManagerWithStorage
 
 		return $bResult;
 	}
+
+	/**
+	 * Update tables required for module work by executing update.sql file.
+	 * 
+	 * @return boolean
+	 */
+	public function updateTables()
+	{
+		$bResult = true;
+		
+		try
+		{
+			if (!\Aurora\System\Managers\Db::getInstance()->columnExists('min_hashes', 'user_id'))
+			{
+				$bResult = \Aurora\System\Managers\Db::getInstance()->executeSql('ALTER TABLE `%PREFIX%min_hashes` ADD COLUMN `user_id` BIGINT(64) NULL DEFAULT NULL AFTER `hash_id`');
+			}
+		}
+		catch (\Aurora\System\Exceptions\BaseException $oException)
+		{
+			$this->setLastException($oException);
+		}
+
+		return $bResult;
+	}	
 }
