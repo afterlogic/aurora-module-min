@@ -105,7 +105,8 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 			}
 
 			$aParams['__time_update__'] = time();
-			$mResult = $this->oConnection->Execute($this->oCommandCreator->updateMinByID(md5($sHashID), @\json_encode($aParams),
+			$aMergedParams = array_merge($aPrevParams, $aParams);
+			$mResult = $this->oConnection->Execute($this->oCommandCreator->updateMinByID(md5($sHashID), @\json_encode($aMergedParams),
 				!empty($sNewHashID) ? md5($sNewHashID) : null));
 		}
 
