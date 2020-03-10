@@ -42,7 +42,7 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 	 *
 	 * @return string|bool
 	 */
-	public function createMin($sHashID, $aParams, $iUserId = null)
+	public function createMin($sHashID, $aParams, $iUserId = null, $iExpireDate = null)
 	{
 		$mResult = false;
 		$sNewMin = '';
@@ -68,7 +68,7 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 			$aParams['__time__'] = time();
 			$aParams['__time_update__'] = time();
 
-			if ($this->oConnection->Execute($this->oCommandCreator->createMin($sNewMin, md5($sHashID), @\json_encode($aParams), $iUserId)))
+			if ($this->oConnection->Execute($this->oCommandCreator->createMin($sNewMin, md5($sHashID), @\json_encode($aParams), $iUserId, $iExpireDate)))
 			{
 				$mResult = $sNewMin;
 			}
@@ -162,6 +162,10 @@ class Storage extends \Aurora\Modules\Min\Storages\Storage
 			if (is_array($aData) && 0 < count($aData))
 			{
 				$mResult = $aData;
+			}
+			if ($oRow->expire_date)
+			{
+				$mResult['expire_date'] = $oRow->expire_date;
 			}
 		}
 		$this->oConnection->FreeResult();

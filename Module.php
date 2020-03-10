@@ -148,13 +148,14 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 * @param string $HashId Hash identifier.
 	 * @param array $Parameters Hash parameters.
 	 * @param int $UserId User identifier.
+	 * @param int $ExpireDate
 	 * @return string|boolean
 	 */
-	public function CreateMin($HashId, $Parameters, $UserId = null)
+	public function CreateMin($HashId, $Parameters, $UserId = null, $ExpireDate = null)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
 		
-		return $this->oManager->createMin($HashId, $Parameters, $UserId);
+		return $this->oManager->createMin($HashId, $Parameters, $UserId, $ExpireDate);
 	}
 	
 	/**

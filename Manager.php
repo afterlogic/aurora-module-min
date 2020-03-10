@@ -25,12 +25,12 @@ class Manager extends \Aurora\System\Managers\AbstractManagerWithStorage
 	 *
 	 * @return string|bool
 	 */
-	public function createMin($sHashID, $aParams, $iUserId = null)
+	public function createMin($sHashID, $aParams, $iUserId = null, $iExpireDate = null)
 	{
 		$mResult = false;
 		try
 		{
-			$mResult = $this->oStorage->createMin($sHashID, $aParams, $iUserId);
+			$mResult = $this->oStorage->createMin($sHashID, $aParams, $iUserId, $iExpireDate);
 		}
 		catch (\Aurora\System\Exceptions\BaseException $oException)
 		{
@@ -212,6 +212,10 @@ class Manager extends \Aurora\System\Managers\AbstractManagerWithStorage
 			if (!\Aurora\System\Managers\Db::getInstance()->columnExists('min_hashes', 'user_id'))
 			{
 				$bResult = \Aurora\System\Managers\Db::getInstance()->executeSql('ALTER TABLE `%PREFIX%min_hashes` ADD COLUMN `user_id` BIGINT(64) NULL DEFAULT NULL AFTER `hash_id`');
+			}
+			if (!\Aurora\System\Managers\Db::getInstance()->columnExists('min_hashes', 'expire_date'))
+			{
+				$bResult = \Aurora\System\Managers\Db::getInstance()->executeSql('ALTER TABLE `%PREFIX%min_hashes` ADD COLUMN `expire_date` INT(11) NULL DEFAULT NULL');
 			}
 		}
 		catch (\Aurora\System\Exceptions\BaseException $oException)
