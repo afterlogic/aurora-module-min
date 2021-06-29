@@ -32,7 +32,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 		$mResult = false;
 		$sNewMin = '';
 
-		if (is_string($sHashID) && 0 < strlen($sHashID) && null !== $this->getMinByID($sHashID))
+		if (is_string($sHashID) && 0 < strlen($sHashID) && false !== $this->getMinByID($sHashID))
 		{
 			return false;
 		}
@@ -40,7 +40,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 		while (true)
 		{
 			$sNewMin = \Aurora\System\Utils::GenerateShortHashString(10);
-			if (null === $this->getMinByHash($sNewMin))
+			if (false === $this->getMinByHash($sNewMin))
 			{
 				break;
 			}
