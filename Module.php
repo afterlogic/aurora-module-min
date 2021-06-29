@@ -30,7 +30,6 @@ class Module extends \Aurora\System\Module\AbstractModule
 	{
 		$this->oManager = new Manager($this);
 		$this->AddEntry('window', 'EntryMin');
-		$this->subscribeEvent('Core::CreateTables::after', array($this, 'onAfterCreateTables'));
 
 		$this->aDeniedMethodsByWebApi = [
 			'CreateMin',
@@ -43,23 +42,6 @@ class Module extends \Aurora\System\Module\AbstractModule
 		];
 	}
 
-	/**
-	 * Creates tables required for module work. Called by event subscribe.
-	 *
-	 * @ignore
-	 * @param array $aParams Parameters
-	 */
-	public function onAfterCreateTables($aParams, &$mResult)
-	{
-		if ($mResult)
-		{
-			$mResult = $this->oManager->createTablesFromFile();
-			if ($mResult)
-			{
-				$mResult = $this->oManager->updateTables();
-			}
-		}
-	}
 	/***** private functions *****/
 
 	/***** public functions *****/
