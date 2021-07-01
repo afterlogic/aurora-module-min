@@ -9,7 +9,7 @@ namespace Aurora\Modules\Min;
 
 /**
  * System module provides hash-based object storage.
- * 
+ *
  * @license https://www.gnu.org/licenses/agpl-3.0.html AGPL-3.0
  * @license https://afterlogic.com/products/common-licensing Afterlogic Software License
  * @copyright Copyright (c) 2019, Afterlogic Corp.
@@ -19,18 +19,17 @@ namespace Aurora\Modules\Min;
 class Module extends \Aurora\System\Module\AbstractModule
 {
 	public $oManager = null;
-	
+
 	/***** private functions *****/
 	/**
 	 * Initializes module.
-	 * 
+	 *
 	 * @ignore
 	 */
 	public function init()
 	{
 		$this->oManager = new Manager($this);
 		$this->AddEntry('window', 'EntryMin');
-		$this->subscribeEvent('Core::CreateTables::after', array($this, 'onAfterCreateTables'));
 
 		$this->aDeniedMethodsByWebApi = [
 			'CreateMin',
@@ -42,26 +41,9 @@ class Module extends \Aurora\System\Module\AbstractModule
 			'UpdateMinByID'
 		];
 	}
-	
-	/**
-	 * Creates tables required for module work. Called by event subscribe.
-	 * 
-	 * @ignore
-	 * @param array $aParams Parameters
-	 */
-	public function onAfterCreateTables($aParams, &$mResult)
-	{
-		if ($mResult)
-		{
-			$mResult = $this->oManager->createTablesFromFile();
-			if ($mResult)
-			{
-				$mResult = $this->oManager->updateTables();
-			}
-		}
-	}
+
 	/***** private functions *****/
-	
+
 	/***** public functions *****/
 	/**
 	 * @ignore
@@ -79,7 +61,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 				if ('Min' === $aPaths[1])
 				{
 					$mHashResult = $this->oManager->getMinByHash(empty($aPaths[2]) ? '' : $aPaths[2]);
-					
+
 					$this->oActions->SetActionParams(array(
 						'Result' => $mHashResult,
 						'Hash' => empty($aPaths[2]) ? '' : $aPaths[2],
@@ -92,11 +74,11 @@ class Module extends \Aurora\System\Module\AbstractModule
 						'RawKey' => empty($aPaths[3]) ? '' : $aPaths[3]
 					));
 				}
-				
+
 				$mResult = \call_user_func(array($this->oActions, $sMethodName));
 				$sTemplate = isset($mResult['Template']) && !empty($mResult['Template']) &&
 					\is_string($mResult['Template']) ? $mResult['Template'] : null;
-				
+
 				if (!empty($sTemplate) && \is_array($mResult) && \file_exists(AU_APP_ROOT_PATH.$sTemplate))
 				{
 					$sResult = \file_get_contents(AU_APP_ROOT_PATH.$sTemplate);
@@ -131,7 +113,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 		{
 			\Aurora\System\Api::LogException($oException);
 		}
-		
+
 		return $sResult;
 	}
 	/***** public functions *****/
@@ -140,11 +122,11 @@ class Module extends \Aurora\System\Module\AbstractModule
 	{
 		return \md5(\implode('|', $aData));
 	}
-	
+
 	/***** public functions might be called with web API *****/
 	/**
 	 * Crates min hash.
-	 * 
+	 *
 	 * @param string $HashId Hash identifier.
 	 * @param array $Parameters Hash parameters.
 	 * @param int $UserId User identifier.
@@ -154,52 +136,52 @@ class Module extends \Aurora\System\Module\AbstractModule
 	public function CreateMin($HashId, $Parameters, $UserId = null, $ExpireDate = null)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
-		
+
 		return $this->oManager->createMin($HashId, $Parameters, $UserId, $ExpireDate);
 	}
-	
+
 	/**
 	 * Returns parameters object by min hash.
-	 * 
+	 *
 	 * @param string $sHash Min hash.
 	 * @return array|bool
 	 */
 	public function GetMinByHash($sHash)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
-		
+
 		return $this->oManager->getMinByHash($sHash);
 	}
-	
+
 	/**
 	 * Returns parameters object by min hash identifier.
-	 * 
+	 *
 	 * @param string $Id
 	 * @return array|bool
 	 */
 	public function GetMinByID($Id)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
-		
+
 		return $this->oManager->getMinByID($Id);
 	}
 
 	/**
 	 * Returns parameters object by min hash identifier.
-	 * 
+	 *
 	 * @param int $Id
 	 * @return array|bool
 	 */
 	public function GetMinListByUserId($UserId)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
-		
+
 		return $this->oManager->getMinListByUserId($UserId);
 	}
-	
+
 	/**
 	 * Updates min hash by min hash identifier.
-	 * 
+	 *
 	 * @param string $Id Hash identifier.
 	 * @param array $Data Hash parameters.
 	 * @param string $NewId New hash identifier.
@@ -208,13 +190,13 @@ class Module extends \Aurora\System\Module\AbstractModule
 	public function UpdateMinByID($Id, $Data, $NewId = null)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
-		
+
 		return $this->oManager->updateMinByID($Id, $Data, $NewId);
 	}
-	
+
 	/**
 	 * Updates min hash by min hash.
-	 * 
+	 *
 	 * @param string $Hash Min hash.
 	 * @param array $Data Hash parameters.
 	 * @param string $NewHash New min hash.
@@ -223,20 +205,20 @@ class Module extends \Aurora\System\Module\AbstractModule
 	public function UpdateMinByHash($Hash, $Data, $NewHash = null)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
-		
+
 		return $this->oManager->updateMinByHash($Hash, $Data, $NewHash);
 	}
-	
+
 	/**
 	 * Deletes min hash by min hash identifier.
-	 * 
+	 *
 	 * @param string $Id
 	 * @return boolean
 	 */
 	public function DeleteMinByID($Id)
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
-		
+
 		return $this->oManager->deleteMinByID($Id);
 	}
 
