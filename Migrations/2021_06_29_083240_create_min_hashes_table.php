@@ -13,16 +13,18 @@ class CreateMinHashesTable extends Migration
      */
     public function up()
     {
-        Capsule::schema()->create('min_hashes', function (Blueprint $table) {
-            $table->id();
-            $table->string('hash_id', 32)->default('');
-            $table->bigInteger('user_id')->nullable();
-            $table->string('hash', 20)->default('');
-            $table->text('data');
-            $table->integer('expire_date')->default(0);
-            $table->timestamps();
-            $table->index('hash', 'min_hash_index');
-        });
+        if (!Capsule::schema()->hasTable('min_hashes')) {
+            Capsule::schema()->create('min_hashes', function (Blueprint $table) {
+                $table->id();
+                $table->string('hash_id', 32)->default('');
+                $table->bigInteger('user_id')->nullable();
+                $table->string('hash', 20)->default('');
+                $table->text('data');
+                $table->integer('expire_date')->default(0);
+                $table->timestamps();
+                $table->index('hash', 'min_hash_index');
+            });
+        }
     }
 
     /**
