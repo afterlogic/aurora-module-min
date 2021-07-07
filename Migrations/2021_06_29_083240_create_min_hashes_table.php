@@ -20,8 +20,9 @@ class CreateMinHashesTable extends Migration
                 $table->bigInteger('user_id')->nullable();
                 $table->string('hash', 20)->default('');
                 $table->text('data');
-                $table->integer('expire_date')->default(0);
-                $table->timestamps();
+                $table->integer('expire_date')->default(0);        
+                $table->timestamp(\Aurora\System\Classes\Model::CREATED_AT)->nullable();
+                $table->timestamp(\Aurora\System\Classes\Model::UPDATED_AT)->nullable();
                 $table->index('hash', 'min_hash_index');
             });
         }
