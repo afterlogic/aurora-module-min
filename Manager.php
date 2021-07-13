@@ -129,8 +129,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	 */
 	public function deleteMinByID($sHashID)
 	{
-		return MinHash::where('hash_id', \md5($sHashID))->delete();
-
+		return !!MinHash::where('hash_id', \md5($sHashID))->delete();
 	}
 
 	/**
@@ -140,7 +139,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	 */
 	public function deleteMinByHash($sHash)
 	{
-		return MinHash::where('hash', $sHash)->delete();
+		return !!MinHash::where('hash', $sHash)->delete();
 	}
 
 	/**
