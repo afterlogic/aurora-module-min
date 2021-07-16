@@ -175,7 +175,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 			$aUpdate['hash_id'] = \md5($sNewHashID);
 		}
 
-		return MinHash::where('hash_id', \md5($sHashID))->udate($aUpdate);
+		return MinHash::where('hash_id', \md5($sHashID))->update($aUpdate);
 	}
 
 	/**
@@ -210,6 +210,6 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 			$aUpdate['hash_id'] = \md5($sNewHashID);
 		}
 
-		return MinHash::where('hash', $sHash)->udate($aUpdate);
+		return MinHash::where('hash', $sHash)->update($aUpdate);
 	}
 }
