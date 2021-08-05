@@ -54,11 +54,11 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 			$aParams['__time_update__'] = time();
 
 			if (MinHash::create([
-				'hash' => $sNewMin,
-				'hash_id' => md5($sHashID),
-				'user_id' => $iUserId,
-				'data' =>  @\json_encode($aParams),
-				'expire_date' => $iExpireDate
+				'Hash' => $sNewMin,
+				'HashId' => md5($sHashID),
+				'UserId' => $iUserId,
+				'Data' =>  @\json_encode($aParams),
+				'ExpireDate' => $iExpireDate
 			])) {
 				$mResult = $sNewMin;
 			}
@@ -74,16 +74,16 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	{
 		$mResult = false;
 
-		if ($oMin && !empty($oMin->data))
+		if ($oMin && !empty($oMin->Data))
 		{
-			$aData = @\json_decode($oMin->data, true);
+			$aData = @\json_decode($oMin->Data, true);
 			if (is_array($aData) && 0 < count($aData))
 			{
 				$mResult = $aData;
 			}
-			if ($oMin->expire_date)
+			if ($oMin->ExpireDate)
 			{
-				$mResult['expire_date'] = $oMin->expire_date;
+				$mResult['ExpireDate'] = $oMin->ExpireDate;
 			}
 		}
 
@@ -97,7 +97,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	 */
 	public function getMinByID($sHashID)
 	{
-		$oMin = MinHash::firstWhere('hash_id', \md5($sHashID));
+		$oMin = MinHash::firstWhere('HashId', \md5($sHashID));
 		return $this->parseGetMinDbResult($oMin);
 	}
 
@@ -108,7 +108,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	 */
 	public function getMinByHash($sHash)
 	{
-		$oMin = MinHash::firstWhere('hash', $sHash);
+		$oMin = MinHash::firstWhere('Hash', $sHash);
 		return $this->parseGetMinDbResult($oMin);
 	}
 
@@ -119,7 +119,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	 */
 	public function getMinListByUserId($iUserId)
 	{
-		return MinHash::where('user_id', $iUserId)->get();
+		return MinHash::where('UserId', $iUserId)->get();
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	 */
 	public function deleteMinByID($sHashID)
 	{
-		return !!MinHash::where('hash_id', \md5($sHashID))->delete();
+		return !!MinHash::where('HashId', \md5($sHashID))->delete();
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 	 */
 	public function deleteMinByHash($sHash)
 	{
-		return !!MinHash::where('hash', $sHash)->delete();
+		return !!MinHash::where('Hash', $sHash)->delete();
 	}
 
 	/**
@@ -169,13 +169,13 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 		$aMergedParams = array_merge($aPrevParams, $aParams);
 
 		$aUpdate = [
-			'data' => @\json_encode($aMergedParams)
+			'Data' => @\json_encode($aMergedParams)
 		];
 		if (!empty($sNewHashID)) {
-			$aUpdate['hash_id'] = \md5($sNewHashID);
+			$aUpdate['HashId'] = \md5($sNewHashID);
 		}
 
-		return MinHash::where('hash_id', \md5($sHashID))->update($aUpdate);
+		return MinHash::where('HashId', \md5($sHashID))->update($aUpdate);
 	}
 
 	/**
@@ -204,12 +204,12 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 		$aParams['__time_update__'] = time();
 
 		$aUpdate = [
-			'data' => @\json_encode($aParams)
+			'Data' => @\json_encode($aParams)
 		];
 		if (!empty($sNewHashID)) {
-			$aUpdate['hash_id'] = \md5($sNewHashID);
+			$aUpdate['HashId'] = \md5($sNewHashID);
 		}
 
-		return MinHash::where('hash', $sHash)->update($aUpdate);
+		return MinHash::where('Hash', $sHash)->update($aUpdate);
 	}
 }
