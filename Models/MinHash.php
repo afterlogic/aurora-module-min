@@ -6,6 +6,7 @@ use Aurora\System\Classes\Model;
 class MinHash extends Model
 {
 	protected $fillable = [
+        'Id',
         'HashId',
         'UserId',
         'Hash',
