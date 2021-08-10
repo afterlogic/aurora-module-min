@@ -13,8 +13,8 @@ class CreateMinHashesTable extends Migration
      */
     public function up()
     {
-        if (!Capsule::schema()->hasTable('min_hashes')) {
-            Capsule::schema()->create('min_hashes', function (Blueprint $table) {
+        if (!Capsule::schema()->hasTable('core_min_hashes')) {
+            Capsule::schema()->create('core_min_hashes', function (Blueprint $table) {
                 $table->id();
                 $table->string('HashId', 32)->default('');
                 $table->bigInteger('UserId')->nullable();
@@ -23,10 +23,10 @@ class CreateMinHashesTable extends Migration
                 $table->integer('ExpireDate')->default(0);
                 $table->timestamp(\Aurora\System\Classes\Model::CREATED_AT)->nullable();
                 $table->timestamp(\Aurora\System\Classes\Model::UPDATED_AT)->nullable();
-                $table->index('Hash', 'min_hash_index');
+                $table->index('Hash', 'core_min_hash_index');
             });
         } else {
-            Capsule::schema()->table('min_hashes', function (Blueprint $table) {
+            Capsule::schema()->table('core_min_hashes', function (Blueprint $table) {
                 $table->renameColumn('hash_id', 'HashId', 32)->default('');
                 $table->renameColumn('user_id', 'UserId')->nullable();
                 $table->renameColumn('hash', 'Hash', 20)->default('');
@@ -34,7 +34,7 @@ class CreateMinHashesTable extends Migration
                 $table->renameColumn('expire_date', 'ExpireDate')->default(0);
                 $table->timestamp(\Aurora\System\Classes\Model::CREATED_AT)->nullable();
                 $table->timestamp(\Aurora\System\Classes\Model::UPDATED_AT)->nullable();
-                $table->index('Hash', 'min_hash_index');
+                $table->index('Hash', 'core_min_hash_index');
             });
         }
     }
@@ -46,6 +46,6 @@ class CreateMinHashesTable extends Migration
      */
     public function down()
     {
-        Capsule::schema()->dropIfExists('min_hashes');
+        Capsule::schema()->dropIfExists('core_min_hashes');
     }
 }

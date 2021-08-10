@@ -5,11 +5,12 @@ use Aurora\System\Classes\Model;
 
 class MinHash extends Model
 {
-	protected $fillable = [
-        'Id',
-        'HashId',
-        'UserId',
-        'Hash',
-        'Data'
-	];
+        protected $table = 'core_min_hashes';
+        protected $fillable = [
+                'Id',
+                'HashId',
+                'UserId',
+                'Hash',
+                'Data'
+        ];
 }
