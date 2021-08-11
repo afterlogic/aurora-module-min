@@ -13,7 +13,7 @@ class CreateMinHashesTable extends Migration
      */
     public function up()
     {
-        if (!Capsule::schema()->hasTable('core_min_hashes')) {
+        if (!Capsule::schema()->hasTable('min_hashes')) {
             Capsule::schema()->create('core_min_hashes', function (Blueprint $table) {
                 $table->id();
                 $table->string('HashId', 32)->default('');
@@ -26,6 +26,7 @@ class CreateMinHashesTable extends Migration
                 $table->index('Hash', 'core_min_hash_index');
             });
         } else {
+            Capsule::schema()->rename('min_hashes', 'core_min_hashes');
             Capsule::schema()->table('core_min_hashes', function (Blueprint $table) {
                 $table->renameColumn('hash_id', 'HashId', 32)->default('');
                 $table->renameColumn('user_id', 'UserId')->nullable();
