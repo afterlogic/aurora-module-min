@@ -13,31 +13,16 @@ class CreateMinHashesTable extends Migration
      */
     public function up()
     {
-        if (!Capsule::schema()->hasTable('min_hashes')) {
-            Capsule::schema()->create('core_min_hashes', function (Blueprint $table) {
-                $table->id();
-                $table->string('HashId', 32)->default('');
-                $table->bigInteger('UserId')->nullable();
-                $table->string('Hash', 20)->default('');
-                $table->text('Data');
-                $table->integer('ExpireDate')->default(0);
-                $table->timestamp(\Aurora\System\Classes\Model::CREATED_AT)->nullable();
-                $table->timestamp(\Aurora\System\Classes\Model::UPDATED_AT)->nullable();
-                $table->index('Hash', 'core_min_hash_index');
-            });
-        } else {
-            Capsule::schema()->rename('min_hashes', 'core_min_hashes');
-            Capsule::schema()->table('core_min_hashes', function (Blueprint $table) {
-                $table->renameColumn('hash_id', 'HashId', 32)->default('');
-                $table->renameColumn('user_id', 'UserId')->nullable();
-                $table->renameColumn('hash', 'Hash', 20)->default('');
-                $table->renameColumn('data', 'Data');
-                $table->renameColumn('expire_date', 'ExpireDate')->default(0);
-                $table->timestamp(\Aurora\System\Classes\Model::CREATED_AT)->nullable();
-                $table->timestamp(\Aurora\System\Classes\Model::UPDATED_AT)->nullable();
-                $table->index('Hash', 'core_min_hash_index');
-            });
-        }
+        Capsule::schema()->create('core_min_hashes', function (Blueprint $table) {
+            $table->string('HashId', 32)->default('');
+            $table->bigInteger('UserId')->nullable();
+            $table->string('Hash', 20)->default('');
+            $table->text('Data');
+            $table->integer('ExpireDate')->default(0)->nullable();
+            $table->timestamp(\Aurora\System\Classes\Model::CREATED_AT)->nullable();
+            $table->timestamp(\Aurora\System\Classes\Model::UPDATED_AT)->nullable();
+            $table->index('Hash', 'min_hash_index');
+        });
     }
 
     /**
