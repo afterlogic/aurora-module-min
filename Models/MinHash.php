@@ -12,6 +12,7 @@ class MinHash extends Model
 	protected $foreignModelIdColumn = 'UserId'; // Column that refers to an external table
 
         protected $fillable = [
+                'Id',
                 'HashId',
                 'UserId',
                 'Hash',
