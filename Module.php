@@ -40,6 +40,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 			'UpdateMinByHash',
 			'UpdateMinByID'
 		];
+		$this->subscribeEvent('Core::DeleteUser::before', array($this, 'onBeforeDeleteUser'));
 	}
 
 	/***** private functions *****/
@@ -117,6 +118,14 @@ class Module extends \Aurora\System\Module\AbstractModule
 		return $sResult;
 	}
 	/***** public functions *****/
+
+	public function onBeforeDeleteUser($aArgs, &$mResult)
+	{
+		$mResult = $this->GetMinListByUserId($aArgs);
+		foreach($mResult as $oItem){
+			self::Decorator()->DeleteMinByHash($oItem->Hash);
+		}
+	}
 
 	public static function generateHashId($aData)
 	{
