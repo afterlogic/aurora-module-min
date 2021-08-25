@@ -14,6 +14,7 @@ class CreateMinHashesTable extends Migration
     public function up()
     {
         Capsule::schema()->create('core_min_hashes', function (Blueprint $table) {
+            $table->increments('Id');
             $table->string('HashId', 32)->default('');
             $table->bigInteger('UserId')->nullable();
             $table->string('Hash', 20)->default('');
