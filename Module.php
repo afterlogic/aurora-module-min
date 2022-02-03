@@ -7,6 +7,8 @@
 
 namespace Aurora\Modules\Min;
 
+use Aurora\Modules\Min\Models\MinHash;
+
 /**
  * System module provides hash-based object storage.
  *
@@ -121,10 +123,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 
 	public function onBeforeDeleteUser($aArgs, &$mResult)
 	{
-		$mResult = $this->GetMinListByUserId($aArgs);
-		foreach($mResult as $oItem){
-			self::Decorator()->DeleteMinByHash($oItem->Hash);
-		}
+		MinHash::where('UserId', $aArgs['UserId'])->delete();
 	}
 
 	public static function generateHashId($aData)
