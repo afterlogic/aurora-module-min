@@ -6,16 +6,17 @@ use Aurora\Modules\Core\Models\User;
 
 class MinHash extends Model
 {
-        protected $table = 'core_min_hashes';
-        
+	protected $table = 'core_min_hashes';
+
 	protected $foreignModel = User::class;
 	protected $foreignModelIdColumn = 'UserId'; // Column that refers to an external table
 
-        protected $fillable = [
-                'Id',
-                'HashId',
-                'UserId',
-                'Hash',
-                'Data'
-        ];
+	protected $fillable = [
+		'Id',
+		'HashId',
+		'UserId',
+		'Hash',
+		'Data',
+		'ExpireDate'
+	];
 }
