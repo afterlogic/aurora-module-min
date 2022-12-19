@@ -22,6 +22,15 @@ class Module extends \Aurora\System\Module\AbstractModule
 {
 	public $oManager = null;
 
+	/**
+	 *
+	 * @return Module
+	 */
+	public static function getInstance()
+	{
+		return \Aurora\System\Api::GetModule(self::GetName());
+	}
+
 	/***** private functions *****/
 	/**
 	 * Initializes module.
@@ -78,7 +87,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 					));
 				}
 
-				$mResult = \call_user_func(array($this->oActions, $sMethodName));
+				$mResult = \call_user_func(array($this->oActions, $sModule));
 				$sTemplate = isset($mResult['Template']) && !empty($mResult['Template']) &&
 					\is_string($mResult['Template']) ? $mResult['Template'] : null;
 
