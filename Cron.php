@@ -18,7 +18,7 @@ class SelfDestructingMinHashes
 
 		try {
 			Models\MinHash::whereNotNull('ExpireDate')->where('ExpireDate', '<=', \time())->delete();
-		} catch(Exception $e) {
+		} catch(\Exception $e) {
 			\Aurora\System\Api::Log('Error during SelfDestructingMinHashes cron script execution. ', \Aurora\System\Enums\LogLevel::Full, 'cron-');
 			\Aurora\System\Api::LogException($e, \Aurora\System\Enums\LogLevel::Full, 'cron-');
 		}

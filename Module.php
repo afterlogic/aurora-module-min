@@ -40,7 +40,6 @@ class Module extends \Aurora\System\Module\AbstractModule
 	public function init()
 	{
 		$this->oManager = new Manager($this);
-		$this->AddEntry('window', 'EntryMin');
 
 		$this->aDeniedMethodsByWebApi = [
 			'CreateMin',
@@ -57,79 +56,6 @@ class Module extends \Aurora\System\Module\AbstractModule
 	/***** private functions *****/
 
 	/***** public functions *****/
-	/**
-	 * @ignore
-	 * @return string
-	 */
-	public function EntryMin()
-	{
-		$sResult = '';
-		$aPaths = \Aurora\System\Application::GetPaths();
-		$sModule = empty($aPaths[1]) ? '' : $aPaths[1];
-		try
-		{
-			if (!empty($sModule))
-			{
-				if ('Min' === $aPaths[1])
-				{
-					$mHashResult = $this->oManager->getMinByHash(empty($aPaths[2]) ? '' : $aPaths[2]);
-
-					$this->oActions->SetActionParams(array(
-						'Result' => $mHashResult,
-						'Hash' => empty($aPaths[2]) ? '' : $aPaths[2],
-					));
-				}
-				else
-				{
-					$this->oActions->SetActionParams(array(
-						'AccountID' => empty($aPaths[2]) || '0' === (string) $aPaths[2] ? '' : $aPaths[2],
-						'RawKey' => empty($aPaths[3]) ? '' : $aPaths[3]
-					));
-				}
-
-				$mResult = \call_user_func(array($this->oActions, $sModule));
-				$sTemplate = isset($mResult['Template']) && !empty($mResult['Template']) &&
-					\is_string($mResult['Template']) ? $mResult['Template'] : null;
-
-				if (!empty($sTemplate) && \is_array($mResult) && \file_exists(AU_APP_ROOT_PATH.$sTemplate))
-				{
-					$sResult = \file_get_contents(AU_APP_ROOT_PATH.$sTemplate);
-					if (\is_string($sResult))
-					{
-						$sResult = \strtr($sResult, $mResult);
-					}
-					else
-					{
-						\Aurora\System\Api::Log('Empty template.', \Aurora\System\Enums\LogLevel::Error);
-					}
-				}
-				else if (!empty($sTemplate))
-				{
-					\Aurora\System\Api::Log('Empty template.', \Aurora\System\Enums\LogLevel::Error);
-				}
-				else if (true === $mResult)
-				{
-					$sResult = '';
-				}
-				else
-				{
-					\Aurora\System\Api::Log('False result.', \Aurora\System\Enums\LogLevel::Error);
-				}
-			}
-			else
-			{
-				\Aurora\System\Api::Log('Empty action.', \Aurora\System\Enums\LogLevel::Error);
-			}
-		}
-		catch (\Exception $oException)
-		{
-			\Aurora\System\Api::LogException($oException);
-		}
-
-		return $sResult;
-	}
-	/***** public functions *****/
-
 	public function onAfterDeleteUser($aArgs, &$mResult)
 	{
 		if ($mResult) {
