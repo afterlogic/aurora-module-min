@@ -1,4 +1,5 @@
 <?php
+
 namespace Aurora\Modules\Min;
 
 require_once dirname(__file__) . '/../../system/autoload.php';
@@ -7,24 +8,24 @@ require_once dirname(__file__) . '/../../system/autoload.php';
 
 class SelfDestructingMinHashes
 {
-	public static function NewInstance()
-	{
-		return new self();
-	}
+    public static function NewInstance()
+    {
+        return new self();
+    }
 
-	public function Execute()
-	{
-		\Aurora\System\Api::Log('---------- Start SelfDestructingMinHashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
+    public function Execute()
+    {
+        \Aurora\System\Api::Log('---------- Start SelfDestructingMinHashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
 
-		try {
-			Models\MinHash::whereNotNull('ExpireDate')->where('ExpireDate', '<=', \time())->delete();
-		} catch(\Exception $e) {
-			\Aurora\System\Api::Log('Error during SelfDestructingMinHashes cron script execution. ', \Aurora\System\Enums\LogLevel::Full, 'cron-');
-			\Aurora\System\Api::LogException($e, \Aurora\System\Enums\LogLevel::Full, 'cron-');
-		}
+        try {
+            Models\MinHash::whereNotNull('ExpireDate')->where('ExpireDate', '<=', \time())->delete();
+        } catch(\Exception $e) {
+            \Aurora\System\Api::Log('Error during SelfDestructingMinHashes cron script execution. ', \Aurora\System\Enums\LogLevel::Full, 'cron-');
+            \Aurora\System\Api::LogException($e, \Aurora\System\Enums\LogLevel::Full, 'cron-');
+        }
 
-		\Aurora\System\Api::Log('---------- End SelfDestructingMinHashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
-	}
+        \Aurora\System\Api::Log('---------- End SelfDestructingMinHashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
+    }
 }
 
 $iTimer = microtime(true);
