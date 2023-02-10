@@ -2,34 +2,33 @@
 
 namespace Aurora\Modules\Min;
 
+use Aurora\Api;
+
 require_once dirname(__file__) . '/../../system/autoload.php';
 
 \Aurora\System\Api::Init(true);
 
-class SelfDestructingMinHashes
+function Execute()
 {
-    public static function NewInstance()
-    {
-        return new self();
-    }
+    \Aurora\System\Api::Log('---------- Start remove expired hashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
 
-    public function Execute()
-    {
-        \Aurora\System\Api::Log('---------- Start SelfDestructingMinHashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
-
-        try {
-            Models\MinHash::whereNotNull('ExpireDate')->where('ExpireDate', '<=', \time())->delete();
-        } catch(\Exception $e) {
-            \Aurora\System\Api::Log('Error during SelfDestructingMinHashes cron script execution. ', \Aurora\System\Enums\LogLevel::Full, 'cron-');
-            \Aurora\System\Api::LogException($e, \Aurora\System\Enums\LogLevel::Full, 'cron-');
+    try {
+        $minDecorator = Api::GetModuleDecorator('Min');
+        if ($minDecorator) {
+            $minDecorator->DeleteExpiredHashes(\time());
         }
-
-        \Aurora\System\Api::Log('---------- End SelfDestructingMinHashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
+    } catch(\Exception $e) {
+        \Aurora\System\Api::Log('Error during remove expired hashes cron script execution. ', \Aurora\System\Enums\LogLevel::Full, 'cron-');
+        \Aurora\System\Api::LogException($e, \Aurora\System\Enums\LogLevel::Full, 'cron-');
     }
+
+    \Aurora\System\Api::Log('---------- End remove expired hashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
 }
 
 $iTimer = microtime(true);
 
-SelfDestructingMinHashes::NewInstance()->Execute();
+Api::skipCheckUserRole(true);
+Execute();
+Api::skipCheckUserRole(false);
 
-\Aurora\System\Api::Log('Cron SelfDestructingMinHashes execution time: '.(microtime(true) - $iTimer).' sec.', \Aurora\System\Enums\LogLevel::Full, 'cron-');
+\Aurora\System\Api::Log('Cron remove expired hashes execution time: '.(microtime(true) - $iTimer).' sec.', \Aurora\System\Enums\LogLevel::Full, 'cron-');

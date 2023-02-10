@@ -173,5 +173,12 @@ class Module extends \Aurora\System\Module\AbstractModule
 
         return $this->oManager->deleteMinByHash($Hash);
     }
+
+    public function DeleteExpiredHashes($Time)
+    {
+        \Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
+        
+        Models\MinHash::whereNotNull('ExpireDate')->where('ExpireDate', '<=', $Time)->delete();
+    }
     /***** public functions might be called with web API *****/
 }
