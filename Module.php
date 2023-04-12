@@ -31,6 +31,15 @@ class Module extends \Aurora\System\Module\AbstractModule
         return \Aurora\System\Api::GetModule(self::GetName());
     }
 
+    /**
+     *
+     * @return Module
+     */
+    public static function Decorator()
+    {
+        return parent::Decorator();
+    }
+
     /***** private functions *****/
     /**
      * Initializes module.
@@ -114,7 +123,7 @@ class Module extends \Aurora\System\Module\AbstractModule
     /**
      * Returns parameters object by min hash identifier.
      *
-     * @param int $Id
+     * @param int $UserId
      * @return array|bool
      */
     public function GetMinListByUserId($UserId)
@@ -177,7 +186,7 @@ class Module extends \Aurora\System\Module\AbstractModule
     public function DeleteExpiredHashes($Time)
     {
         \Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
-        
+        // @phpstan-ignore-next-line
         Models\MinHash::whereNotNull('ExpireDate')->where('ExpireDate', '<=', $Time)->delete();
     }
     /***** public functions might be called with web API *****/

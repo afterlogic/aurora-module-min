@@ -49,6 +49,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
             $aParams['__time__'] = time();
             $aParams['__time_update__'] = time();
 
+            // @phpstan-ignore-next-line
             if (MinHash::create([
                 'Hash' => $sNewMin,
                 'HashId' => md5($sHashID),
@@ -63,7 +64,9 @@ class Manager extends \Aurora\System\Managers\AbstractManager
         return $mResult;
     }
 
-        /**
+    /**
+     * @param Models\MinHash $oMin
+     * 
      * @return array|bool
      */
     private function parseGetMinDbResult($oMin)
@@ -74,9 +77,10 @@ class Manager extends \Aurora\System\Managers\AbstractManager
             $aData = @\json_decode($oMin->Data, true);
             if (is_array($aData) && 0 < count($aData)) {
                 $mResult = $aData;
-            }
-            if ($oMin->ExpireDate) {
-                $mResult['ExpireDate'] = $oMin->ExpireDate;
+                
+                if ($oMin->ExpireDate) {
+                    $mResult['ExpireDate'] = $oMin->ExpireDate;
+                }
             }
         }
 
