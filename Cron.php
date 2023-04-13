@@ -13,6 +13,7 @@ function Execute()
     \Aurora\System\Api::Log('---------- Start remove expired hashes cron script', \Aurora\System\Enums\LogLevel::Full, 'cron-');
 
     try {
+        /** @var \Aurora\Modules\Min\Module $minDecorator */
         $minDecorator = Api::GetModuleDecorator('Min');
         if ($minDecorator) {
             $minDecorator->DeleteExpiredHashes(\time());
