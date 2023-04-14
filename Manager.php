@@ -66,7 +66,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
 
     /**
      * @param Models\MinHash $oMin
-     * 
+     *
      * @return array|bool
      */
     private function parseGetMinDbResult($oMin)
@@ -77,7 +77,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
             $aData = @\json_decode($oMin->Data, true);
             if (is_array($aData) && 0 < count($aData)) {
                 $mResult = $aData;
-                
+
                 if ($oMin->ExpireDate) {
                     $mResult['ExpireDate'] = $oMin->ExpireDate;
                 }
