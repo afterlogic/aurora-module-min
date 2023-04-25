@@ -51,7 +51,6 @@ class Manager extends \Aurora\System\Managers\AbstractManager
             $aParams['__time__'] = time();
             $aParams['__time_update__'] = time();
 
-            // @phpstan-ignore-next-line
             if (MinHash::create([
                 'Hash' => $sNewMin,
                 'HashId' => md5($sHashID),

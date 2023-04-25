@@ -194,7 +194,6 @@ class Module extends \Aurora\System\Module\AbstractModule
     public function DeleteExpiredHashes($Time)
     {
         \Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
-        // @phpstan-ignore-next-line
         Models\MinHash::whereNotNull('ExpireDate')->where('ExpireDate', '<=', $Time)->delete();
     }
     /***** public functions might be called with web API *****/
