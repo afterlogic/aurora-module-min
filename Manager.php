@@ -8,6 +8,7 @@
 namespace Aurora\Modules\Min;
 
 use Aurora\Modules\Min\Models\MinHash;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 /**
  * @license https://www.gnu.org/licenses/agpl-3.0.html AGPL-3.0
@@ -106,7 +107,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
      */
     public function getMinByHash($sHash)
     {
-        $oMin = MinHash::firstWhere('Hash', $sHash);
+        $oMin = MinHash::where(Capsule::connection()->raw('BINARY `Hash`'), $sHash)->first();
         return $this->parseGetMinDbResult($oMin);
     }
 
@@ -137,7 +138,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
      */
     public function deleteMinByHash($sHash)
     {
-        return !!MinHash::where('Hash', $sHash)->delete();
+        return !!MinHash::where(Capsule::connection()->raw('BINARY `Hash`'), $sHash)->delete();
     }
 
     /**
