@@ -65,7 +65,9 @@ class Module extends \Aurora\System\Module\AbstractModule
             'GetMinByHash',
             'GetMinByID',
             'UpdateMinByHash',
-            'UpdateMinByID'
+            'UpdateMinByID',
+            'DeleteExpiredHashes',
+            'generateHashId'
         ];
         $this->subscribeEvent('Core::DeleteUser::after', array($this, 'onAfterDeleteUser'));
     }
