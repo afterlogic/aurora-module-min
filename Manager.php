@@ -112,6 +112,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
     }
 
     /**
+     * @deprecated since version 9.7.3
      * @param int $iUserId
      *
      * @return array|bool

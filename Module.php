@@ -131,7 +131,7 @@ class Module extends \Aurora\System\Module\AbstractModule
     }
 
     /**
-     * Returns parameters object by min hash identifier.
+     * @deprecated since version 9.7.3
      *
      * @param int $UserId
      * @return array|bool
