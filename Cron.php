@@ -36,4 +36,4 @@ Api::skipCheckUserRole(true);
 Execute();
 Api::skipCheckUserRole(false);
 
-\Aurora\System\Api::Log('Cron remove expired hashes execution time: '.(microtime(true) - $iTimer).' sec.', \Aurora\System\Enums\LogLevel::Full, 'cron-');
+\Aurora\System\Api::Log('Cron remove expired hashes execution time: ' . (microtime(true) - $iTimer) . ' sec.', \Aurora\System\Enums\LogLevel::Full, 'cron-');
