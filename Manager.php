@@ -40,7 +40,7 @@ class Manager extends \Aurora\System\Managers\AbstractManager
         }
 
         while (true) {
-            $sNewMin = \Aurora\System\Utils::GenerateShortHashString(10);
+            $sNewMin = \Illuminate\Support\Str::random(10);
             if (false === $this->getMinByHash($sNewMin)) {
                 break;
             }
